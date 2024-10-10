@@ -26,3 +26,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get update && apt-get install -y ros-humble-desktop \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+    
+# ROS 2 ワークスペースの作成
+RUN mkdir -p /ros2_ws/src
+
+# デフォルトのコマンドを指定してコンテナを起動
+CMD ["/bin/bash"]
