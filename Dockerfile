@@ -4,7 +4,7 @@ FROM arm64v8/ubuntu:22.04
 # 環境変数の設定
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-
+ENV DEBIAN_FRONTEND=noninteractive
 # ビルドに必要なパッケージとROS 2 Humble のインストール
 RUN apt-get update && apt-get install -y \
     locales \
