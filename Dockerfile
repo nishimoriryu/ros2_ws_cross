@@ -1,15 +1,28 @@
 # ベースイメージを指定 (ARM64 用)
 FROM arm64v8/ubuntu:22.04
 
-# ROS 2 Humble のインストール
+# 環境変数の設定
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+# ビルドに必要なパッケージとROS 2 Humble のインストール
 RUN apt-get update && apt-get install -y \
     locales \
     curl \
     gnupg2 \
     lsb-release \
+    gcc-aarch64-linux-gnu \
+    g++-aarch64-linux-gnu \
+    qemu-user-static \
+    binfmt-support \
+    build-essential \
+    cmake \
+    git \
+    pkg-config \
     && locale-gen en_US.UTF-8 \
-    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-
-RUN curl -sSL http://repo.ros2.org/repos.key | apt-key add - \
-    && echo "deb http://repo.ros2.org/ubuntu/main $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list \
-    && apt-get update && apt-get install -y ros-humble-desktop
+    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 \
+    && curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2-latest.list > /dev/null \
+    && apt-get update && apt-get install -y ros-humble-desktop \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*

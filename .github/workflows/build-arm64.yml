@@ -21,10 +21,6 @@ jobs:
         with:
           platforms: arm64
 
-      - name: Set timezone
-        run: |
-          sudo timedatectl set-timezone "America/New_York"
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
