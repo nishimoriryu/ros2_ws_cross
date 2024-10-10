@@ -34,5 +34,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: your-dockerhub-username/your-repository-name:latest
+          tags: your-dockerhub-nishimoriryu/ros2_ws_cross_docker:latest
           platforms: linux/arm64
