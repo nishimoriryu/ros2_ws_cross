@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     gnupg2 \
     lsb-release \
+    python3-pip \
     gcc-aarch64-linux-gnu \
     g++-aarch64-linux-gnu \
     qemu-user-static \
@@ -27,6 +28,14 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
     
+
+# pipを最新にアップグレード
+RUN pip3 install --upgrade pip
+
+# colconのインストール
+RUN pip3 install -U colcon-common-extensions
+
+
 # ROS 2 ワークスペースの作成
 RUN mkdir -p /ros2_ws/src
 
